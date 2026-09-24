@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/*
+ * Moodoo tokens — derived from the Figma file (0hJxVjyUUXUnL81whE0RCT, node 788:2).
+ * The file defines no colour variables or text styles, so every value below is
+ * taken from a usage census of the page frame; names follow the file's own
+ * "MoodooPosts/*" colour-style naming where one exists.
+ */
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display-pill: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* surfaces */
+  --color-butter: #ffeac0;        /* page + hero + personas + waitlist */
+  --color-cream: #fff5e2;         /* nav pill, What-is panel */
+  --color-sage: #95a38b;          /* burnout stats */
+  --color-lagoon: #7daeb9;        /* mandalas, manager chip */
+  --color-pistachio: #c4bd74;     /* MoodooPosts/Pistachio Shortbread */
+
+  /* ink */
+  --color-ink: #121212;
+  --color-ink-soft: #33353b;
+  --color-ink-muted: #696c75;
+  --color-plum: #592145;          /* hero secondary headline */
+
+  /* accents */
+  --color-mustard: #e3c804;       /* primary button, chapter rail */
+  --color-marigold: #f8a706;
+  --color-lobster: #cf8516;       /* MoodooPosts/Lobster Butter Sauce */
+  --color-mist: #e8f0e5;          /* chip names */
+  --color-error: #ff000d;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-butter);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body { font-family: var(--font-sans); }
+  ::selection { background: color-mix(in srgb, var(--color-mustard) 55%, transparent); }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  /*
+   * Figma draws these as ~7,000 individual 4px ellipses per section
+   * (Shape Grid: 20px pitch, frame origin at -118,-386, group opacity .24).
+   * Dot centres therefore land at x ≡ 4, y ≡ 16 (mod 20) from the section's
+   * top-left; background-position -6px 6px reproduces that exactly.
+   */
+  .dot-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.24;
+    background-image: radial-gradient(circle at center, var(--dot) 2px, transparent 2.25px);
+    background-size: 20px 20px;
+    background-position: calc(50% - 720px - 6px) 6px;
+  }
+
+  /* 11px tracked pill used above section headings */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid #e3e8f1;
+    background: rgb(255 255 255 / 0.85);
+    box-shadow: 0 1px 2px 0 rgb(7 20 47 / 0.05);
+    font-size: 11px;
+    line-height: 17.82px;
+    font-weight: 600;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: var(--color-mustard);
+    color: var(--color-ink);
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: background-color 200ms var(--ease-soft), transform 200ms var(--ease-soft);
+  }
+  .btn-primary:hover { background: color-mix(in srgb, var(--color-mustard) 88%, #000); }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-primary .btn-arrow { transition: transform 200ms var(--ease-soft); }
+  .btn-primary:hover .btn-arrow { transform: translateX(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
