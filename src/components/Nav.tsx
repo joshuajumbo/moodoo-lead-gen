@@ -47,7 +47,7 @@ export function Nav() {
     <header className="pointer-events-none fixed inset-x-0 top-[20px] z-50 px-[24px] max-[1023px]:top-[12px] max-[1023px]:px-[12px]">
       <nav
         aria-label="Primary"
-        className="intro-nav pointer-events-auto relative mx-auto flex h-[56.75px] max-w-[1392px] items-center justify-between rounded-[9999px] border border-[rgba(4,58,78,0.1)] pl-[24.2px] pr-[24px] backdrop-blur-[9px] transition-[background-color] duration-500 ease-[var(--ease-soft)]"
+        className="intro-nav pointer-events-auto relative mx-auto flex h-[56.75px] max-w-[1392px] items-center justify-between rounded-[9999px] border border-[rgba(4,58,78,0.1)] pl-[24.2px] pr-[24px] max-[1023px]:pr-[8.875px] backdrop-blur-[9px] transition-[background-color] duration-500 ease-[var(--ease-soft)]"
         style={{
           backgroundColor: tint,
           boxShadow: "0 10px 30px -14px rgb(4 58 78 / 0.13), inset 0 1px 0 1px rgb(255 255 255 / 0.67)",
