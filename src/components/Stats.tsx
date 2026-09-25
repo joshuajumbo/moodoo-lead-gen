@@ -8,7 +8,7 @@ export function Stats() {
     <section
       id="why-moodoo"
       data-nav-tint="#dfe4da"
-      className="relative h-[723px] scroll-mt-[96px] overflow-hidden bg-sage text-white"
+      className="relative hidden h-[723px] overflow-hidden bg-sage text-white desk:block"
       aria-labelledby="stats-title"
     >
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
@@ -47,11 +47,11 @@ export function Stats() {
   );
 }
 
-function GrowthChart() {
+export function GrowthChart({ className = "", style }: { className?: string; style?: React.CSSProperties } = {}) {
   const O = { x: 830, y: 30 };
   const at = (x: number, y: number) => `translate(${(x - O.x).toFixed(2)} ${(y - O.y).toFixed(2)})`;
   return (
-    <svg aria-hidden className="absolute" style={{ left: O.x, top: O.y }} width="500" height="335" viewBox="0 0 500 335" fill="none">
+    <svg aria-hidden className={className || "absolute"} style={className ? style : { left: O.x, top: O.y }} width="500" height="335" viewBox="0 0 500 335" fill="none">
       <defs>
         <linearGradient id="growth-fill" x1="231" y1="0" x2="231" y2="402" gradientUnits="userSpaceOnUse">
           <stop stopColor="#DEB23D" />

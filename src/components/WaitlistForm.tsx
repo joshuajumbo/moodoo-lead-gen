@@ -55,12 +55,12 @@ export function WaitlistForm() {
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className="mt-[48px] flex w-full flex-col items-center gap-[12px] rounded-[22px] border border-[rgb(4_58_78/0.1)] bg-white px-[40px] py-[56px] text-center shadow-[0_8px_22px_-14px_rgb(4_58_78/0.2)] outline-none"
+        className="mt-[40px] flex w-full flex-col items-center gap-[12px] rounded-[22px] border border-[rgb(4_58_78/0.1)] bg-white px-6 py-12 md:mt-[48px] md:px-[40px] md:py-[56px] text-center shadow-[0_8px_22px_-14px_rgb(4_58_78/0.2)] outline-none"
       >
         <span aria-hidden className="grid size-[48px] place-items-center rounded-full" style={{ backgroundImage: "linear-gradient(150deg, #e3c804 0%, #f8a706 100%)" }}>
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11.5l4 4 8-9" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>
-        <p className="text-[32px] font-bold leading-[35.2px] tracking-[-0.6px] text-ink">
+        <p className="text-[clamp(26px,6.4vw,32px)] font-bold leading-[1.1] tracking-[-0.019em] text-ink">
           {joined ? "You’re on the list" : "You’re already on the list"}
         </p>
         <p className="max-w-[440px] text-[16px] leading-[26px] text-ink-muted">
@@ -89,7 +89,7 @@ export function WaitlistForm() {
         <input key={k} type="hidden" name={k} defaultValue="" />
       ))}
 
-      <div className="grid w-full grid-cols-2 gap-[40px] max-[767px]:grid-cols-1 max-[767px]:gap-[24px]">
+      <div className="grid w-full grid-cols-1 gap-[24px] md:grid-cols-2 md:gap-x-[32px] md:gap-y-[32px] desk:gap-[40px]">
         <Field id="work_email" label="Work Email" required error={err("work_email")}>
           <input
             id="work_email" name="work_email" type="email" inputMode="email" autoComplete="email" required
@@ -126,13 +126,13 @@ export function WaitlistForm() {
         </Field>
       </div>
 
-      <div className="flex w-full items-center justify-end gap-[20px]">
+      <div className="flex w-full flex-col-reverse items-stretch gap-4 sm:flex-row sm:items-center sm:justify-end sm:gap-[20px]">
         <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
           {state.status === "error" && (
-            <p id="form-error" className="text-[14px] font-medium leading-[21px] text-[#b3261e]">{state.message}</p>
+            <p id="form-error" className="text-center text-[14px] font-medium leading-[21px] text-[#b3261e] sm:text-right">{state.message}</p>
           )}
         </div>
-        <button type="submit" disabled={pending} className="btn-primary disabled:cursor-progress disabled:opacity-70">
+        <button type="submit" disabled={pending} className="btn-primary justify-center disabled:cursor-progress disabled:opacity-70 max-sm:w-full max-sm:!py-[16px]">
           {pending ? "Joining…" : "Join Early Access"}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/img/icons/arrow.svg" alt="" width={14} height={14} className="btn-arrow" />
@@ -157,7 +157,7 @@ function Field({ id, label, required, error, children }: { id: string; label: st
       </label>
       <div className={`${fieldShell} ${error ? "border-[#b3261e]/60" : "border-[rgb(4_58_78/0.1)]"}`}>{children}</div>
       {error && (
-        <p id={`${id}-error`} className="absolute -bottom-[26px] left-[17px] text-[13px] leading-[19.5px] text-[#b3261e]">
+        <p id={`${id}-error`} className="-mt-[2px] pl-[17px] text-[13px] leading-[19.5px] text-[#b3261e]">
           {error}
         </p>
       )}

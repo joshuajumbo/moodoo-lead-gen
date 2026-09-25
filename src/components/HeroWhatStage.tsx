@@ -42,6 +42,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const [cycleIndex, setCycleIndex] = useState(0);
   const [handedOff, setHandedOff] = useState(false);
   const [reduced, setReduced] = useState(false);
+  const [isDesk, setIsDesk] = useState(false);
 
   // scroll offsets bounding the hand-off, measured on layout
   const range = useRef({ s0: 0, s1: 693 });
@@ -65,18 +66,25 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
     if (stageRef.current) ro.observe(stageRef.current);
     window.addEventListener("resize", measure);
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const onMq = () => setReduced(mq.matches);
+    const dq = window.matchMedia("(min-width: 80rem)");
+    const onMq = () => {
+      setReduced(mq.matches);
+      setIsDesk(dq.matches);
+    };
     onMq();
     mq.addEventListener("change", onMq);
+    dq.addEventListener("change", onMq);
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", measure);
       mq.removeEventListener("change", onMq);
+      dq.removeEventListener("change", onMq);
     };
   }, [measure]);
 
   const update = useCallback(
     (y: number) => {
+      if (!isDesk) return; // stage is display:none below 1280
       const { s0, s1 } = range.current;
       const p = clamp01((y - s0) / Math.max(1, s1 - s0));
       progress.set(p);
@@ -90,7 +98,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
       });
       setActive(idx);
     },
-    [pinTop, progress],
+    [pinTop, progress, isDesk],
   );
 
   useMotionValueEvent(scrollY, "change", update);
@@ -98,10 +106,10 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
 
   // hero screen cycle — only while the phone is still in the hero
   useEffect(() => {
-    if (reduced || handedOff) return;
+    if (reduced || handedOff || !isDesk) return;
     const id = window.setInterval(() => setCycleIndex((i) => (i + 1) % HERO_CYCLE.length), HERO_CYCLE_MS);
     return () => window.clearInterval(id);
-  }, [reduced, handedOff]);
+  }, [reduced, handedOff, isDesk]);
 
   const screen: ScreenId = handedOff ? CHAPTERS[active].screen : HERO_CYCLE[cycleIndex];
 
@@ -112,7 +120,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const driftY = useMotionValue(0);
   const driftR = useMotionValue(0);
   useAnimationFrame((t) => {
-    const amp = reduced ? 0 : driftAmp.get();
+    const amp = reduced || !isDesk ? 0 : driftAmp.get();
     if (amp === 0 && driftY.get() === 0) return;
     const phase = (t / 7000) * Math.PI * 2;
     driftY.set(Math.sin(phase) * 5 * amp);
@@ -128,9 +136,9 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const supportText = useTransform(progress, [0.58, 0.7], [0, 1]);
 
   return (
-    <div ref={stageRef} className="relative">
+    <div ref={stageRef} className="relative hidden overflow-x-clip desk:block">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section id="top" data-nav-tint="#fff5e2" className="relative h-[745px] overflow-hidden bg-butter" aria-labelledby="hero-title">
+      <section data-nav-tint="#fff5e2" className="relative h-[745px] overflow-hidden bg-butter" aria-labelledby="hero-title">
         <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#f8a706" }} />
         <div className="relative mx-auto h-full w-[1440px] max-w-none" style={{ marginLeft: "calc(50% - 720px)" }}>
           <div className="absolute left-[140px] top-[128px] flex w-[564px] flex-col gap-[32px]">

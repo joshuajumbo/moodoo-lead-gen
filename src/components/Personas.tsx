@@ -47,12 +47,12 @@ export function Personas() {
       ref={ref}
       data-nav-tint="#fff5e2"
       aria-labelledby="personas-title"
-      className="relative bg-butter"
+      className="relative hidden bg-butter desk:block"
       style={{ height: `calc(min(${900 + NAV_CLEAR}px, 100svh) + ${TRACK}px)` }}
     >
       {PERSONAS.map((p, k) =>
         anchorFor[p.id] ? (
-          <span key={p.id} id={anchorFor[p.id]} aria-hidden className="absolute left-0 h-px w-px" style={{ top: k * (DWELL + MOVE) + DWELL / 2 }} />
+          <span key={p.id} id={anchorFor[p.id]} aria-hidden className="absolute left-0 h-px w-px" style={{ top: k * (DWELL + MOVE) + DWELL / 2 + 88 /* html scroll-padding-top */ }} />
         ) : null,
       )}
 

@@ -10,6 +10,23 @@ import { NAV } from "@/content/moodoo";
  */
 const DEFAULT_TINT = "#fff5e2";
 
+/**
+ * Sections exist twice — the pinned desktop composition and a fluid layout —
+ * and only one is displayed. Anchors carry canonical ids on desktop and a "-m"
+ * suffix in the fluid layout; jump to whichever is actually on screen.
+ */
+function jump(e: React.MouseEvent<HTMLAnchorElement>) {
+  const id = e.currentTarget.getAttribute("href")?.slice(1);
+  if (!id) return;
+  const shown = (el: HTMLElement | null) => (el && el.getClientRects().length > 0 ? el : null);
+  const target = shown(document.getElementById(id)) ?? shown(document.getElementById(`${id}-m`));
+  if (!target) return;
+  e.preventDefault();
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  history.replaceState(null, "", `#${id}`);
+}
+
 export function Nav() {
   const [tint, setTint] = useState(DEFAULT_TINT);
 
@@ -45,6 +62,7 @@ export function Nav() {
             <li key={item.href}>
               <a
                 href={item.href}
+                onClick={jump}
                 className="text-[13px] font-medium leading-[19.5px] text-ink-soft transition-colors duration-200 hover:text-ink focus-visible:rounded-[6px]"
               >
                 {item.label}

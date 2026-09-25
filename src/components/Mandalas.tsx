@@ -1,5 +1,6 @@
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
 import { PhoneScreens } from "@/components/phone/PhoneScreens";
+import { MandalaStrip } from "@/components/MandalaStrip";
 
 /**
  * "Introducing Moodoo Mandalas" (807:324061). 1440 × 900 on lagoon.
@@ -8,7 +9,6 @@ import { PhoneScreens } from "@/components/phone/PhoneScreens";
  * same sticky model as the hero: natural top 270.75, pinned at 170.75, released
  * 40px above the section's end. Pure CSS — no scroll listeners needed.
  */
-const TILES_X = [-24, 139, 302, 465, 815, 978, 1141, 1304];
 const PHONE = { x: 606, y: 270.75, w: 227, h: 463.5 };
 
 export function Mandalas() {
@@ -17,7 +17,7 @@ export function Mandalas() {
       id="mandalas"
       data-nav-tint="#d6e7eb"
       aria-labelledby="mandalas-title"
-      className="relative h-[900px] overflow-hidden bg-lagoon text-white"
+      className="relative hidden h-[900px] overflow-hidden bg-lagoon text-white desk:block"
     >
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
       <div className="relative h-full w-[1440px]" style={{ marginLeft: "calc(50% - 720px)" }}>
@@ -33,14 +33,7 @@ export function Mandalas() {
           using pleasantness and energy to capture your current experience
         </p>
 
-        <ul aria-label="Mandala moods" className="absolute left-0 top-[423px] h-[159px] w-full">
-          {TILES_X.map((x, i) => (
-            <li key={x} className="absolute top-0 size-[159px]" style={{ left: x }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/img/mandalas/mandala-${i + 1}.svg`} alt="" width={159} height={159} className="size-[159px]" />
-            </li>
-          ))}
-        </ul>
+        <MandalaStrip className="absolute left-1/2 top-[423px] -translate-x-1/2 [--g:4px] [--sp:183px] [--t:159px]" />
 
         <div className="absolute left-[140px] top-[650px] flex w-[404px] flex-col gap-[12px]">
           <h3 className="text-[22px] font-extrabold leading-[26px]">Pleasantness</h3>
