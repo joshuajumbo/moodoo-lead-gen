@@ -6,6 +6,7 @@ import { motion, useAnimationFrame, useMotionValue, useScroll, useTransform, use
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
 import { PhoneScreens } from "@/components/phone/PhoneScreens";
 import { ChipText, GlassChip } from "@/components/GlassChip";
+import { INTRO, Line, d } from "@/components/intro";
 import { SocialProof } from "@/components/SocialProof";
 import type { SocialProof as Proof } from "@/lib/social-proof";
 import { CHAPTERS, HERO_CHIPS, HERO_CYCLE, HERO_CYCLE_MS, WHAT_CHIP, type ScreenId } from "@/content/moodoo";
@@ -143,33 +144,33 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
         <div className="relative mx-auto h-full w-[1440px] max-w-none" style={{ marginLeft: "calc(50% - 720px)" }}>
           <div className="absolute left-[140px] top-[128px] flex w-[564px] flex-col gap-[32px]">
             <div className="flex flex-col items-start gap-[19px]">
-              <p className="eyebrow">For teams, managers, and organizations building healthier ways of working.</p>
+              <p className="eyebrow intro-fade" style={d(INTRO.eyebrow)}>For teams, managers, and organizations building healthier ways of working.</p>
               <div className="flex flex-col gap-[21px]">
                 <h1 id="hero-title" className="flex flex-col gap-[2px] text-[64px] leading-[64px]">
                   <span className="font-bold tracking-[-1.104px] text-ink">
-                    Understand how
-                    <br />
-                    your team feels
+                    <Line delay={INTRO.lines[0]}>Understand how</Line>
+                    <Line delay={INTRO.lines[1]}>your team feels</Line>
                   </span>
                   <span className="font-normal tracking-[-0.39px] text-plum">
-                    Your team’s mood,
-                    <br />
-                    made visible
+                    <Line delay={INTRO.lines[2]}>Your team’s mood,</Line>
+                    <Line delay={INTRO.lines[3]}>made visible</Line>
                   </span>
                 </h1>
-                <p className="text-[18px] leading-[29.16px] text-ink-soft">
+                <p className="intro-fade text-[18px] leading-[29.16px] text-ink-soft" style={d(INTRO.body)}>
                   The small moments of stress, disconnection, and exhaustion don’t always show up in a meeting. Moodoo helps
                   teams check in, understand their emotional patterns, and make space for better ways of working
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-start gap-[12px]">
-              <a href="#join" className="btn-primary">
+              <a href="#join" className="btn-primary intro-fade" style={d(INTRO.cta)}>
                 Join Early Access
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/img/icons/arrow.svg" alt="" width={14} height={14} className="btn-arrow" />
               </a>
-              <SocialProof {...proof} />
+              <div className="intro-fade" style={d(INTRO.proof)}>
+                <SocialProof {...proof} />
+              </div>
             </div>
           </div>
         </div>
@@ -244,25 +245,31 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
             style={{ top: pinTop, marginTop: HERO_PHONE.y, marginLeft: HERO_PHONE.x, width: PHONE_W, height: PHONE_H, x }}
           >
             <motion.div className="relative size-full" style={{ y: driftY, rotate: driftR }}>
-              <div className="size-full" style={{ transform: "rotate(-1deg)" }}>
-                <PhoneBezel>
-                  <PhoneScreens active={screen} screens={ALL_SCREENS} priority />
-                </PhoneBezel>
+              <div className="intro-phone size-full" style={d(INTRO.phone)}>
+                <div className="size-full" style={{ transform: "rotate(-1deg)" }}>
+                  <PhoneBezel>
+                    <PhoneScreens active={screen} screens={ALL_SCREENS} priority />
+                  </PhoneBezel>
+                </div>
               </div>
 
               {/* left chip leaves during the hand-off */}
               <motion.div style={{ opacity: heroChipOpacity, y: heroChipY }}>
-                <GlassChip bg={HERO_CHIPS[0].bg} style={{ left: HERO_CHIPS[0].x, top: HERO_CHIPS[0].y }}>
-                  <ChipText {...HERO_CHIPS[0]} />
-                </GlassChip>
+                <div className="intro-chip absolute inset-0" style={d(INTRO.chips[0])}>
+                  <GlassChip bg={HERO_CHIPS[0].bg} style={{ left: HERO_CHIPS[0].x, top: HERO_CHIPS[0].y }}>
+                    <ChipText {...HERO_CHIPS[0]} />
+                  </GlassChip>
+                </div>
               </motion.div>
 
               {/* right chip travels to its What-section slot and changes persona */}
               <motion.div className="absolute left-0 top-0" style={{ x: rightChipX, y: rightChipY }}>
-                <GlassChip bg={chipBg} style={{ left: 0, top: 0 }}>
-                  <ChipText {...HERO_CHIPS[1]} opacity={managerText} />
-                  <ChipText {...WHAT_CHIP} opacity={supportText} />
-                </GlassChip>
+                <div className="intro-chip absolute inset-0" style={d(INTRO.chips[1])}>
+                  <GlassChip bg={chipBg} style={{ left: 0, top: 0 }}>
+                    <ChipText {...HERO_CHIPS[1]} opacity={managerText} />
+                    <ChipText {...WHAT_CHIP} opacity={supportText} />
+                  </GlassChip>
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>

@@ -124,6 +124,28 @@
 }
 .phone-float { animation: phone-float 7s ease-in-out infinite; }
 
+/*
+ * On-load intro (hero + nav only, plays once). Pure CSS so it starts on first
+ * paint with no hydration gate. Uses the individual translate/scale properties
+ * so it composes with — never overrides — the phone's scroll-driven transforms.
+ * Stagger comes from --d. Reduced motion collapses it via the rule below.
+ */
+:root { --ease-expo: cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes intro-rise { from { translate: 0 calc(100% + 0.3em); } } /* clears ascenders that overhang a 1.0 line box */
+@keyframes intro-fade-up { from { opacity: 0; translate: 0 14px; filter: blur(6px); } }
+@keyframes intro-nav { from { opacity: 0; translate: 0 -10px; } }
+@keyframes intro-phone { from { opacity: 0; translate: 0 32px; scale: 0.965; } }
+@keyframes intro-chip { from { opacity: 0; translate: 0 12px; scale: 0.96; } }
+
+/* a headline line: the mask, with room for descenders */
+.intro-line { display: block; overflow: clip; padding-block: 0.1em; margin-block: -0.1em; } /* room for ascenders + descenders, zero layout change */
+.intro-line > span { display: block; animation: intro-rise 1000ms var(--ease-expo) var(--d, 0ms) both; }
+.intro-fade { animation: intro-fade-up 900ms var(--ease-expo) var(--d, 0ms) both; }
+.intro-nav { animation: intro-nav 800ms var(--ease-expo) var(--d, 0ms) both; }
+.intro-phone { animation: intro-phone 1300ms var(--ease-expo) var(--d, 0ms) both; }
+.intro-chip { animation: intro-chip 900ms var(--ease-expo) var(--d, 0ms) both; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
