@@ -4,7 +4,7 @@ import { WaitlistForm } from "@/components/WaitlistForm";
 export function Waitlist() {
   return (
     <section id="join" data-nav-tint="#fff5e2" aria-labelledby="join-title" className="relative bg-butter desk:min-h-[900px]">
-      <div className="relative mx-auto flex w-full max-w-[1046px] flex-col items-center px-6 pb-16 pt-16 md:px-10 md:pb-24 md:pt-[88px] desk:max-w-[966px] desk:px-0 desk:pb-[51px] desk:pt-[98px]">
+      <div className="relative mx-auto flex w-full max-w-[1046px] flex-col items-center px-6 pb-16 pt-6 md:px-10 md:pb-24 md:pt-[88px] desk:max-w-[966px] desk:px-0 desk:pb-[51px] desk:pt-[98px]">
         {/* logo 788:14639 — 169.142 × 31.607, nudged +4.8 as in Figma */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/img/icons/logo.svg" alt="" width={169.142} height={31.607} className="relative left-[4.8px] h-[26px] w-auto md:h-[31.607px]" />

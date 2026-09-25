@@ -10,7 +10,7 @@ const ANCHOR: Record<string, string> = { managers: "for-managers-m", remote: "fo
 export function FluidPersonas() {
   return (
     <section aria-labelledby="personas-title-m" data-nav-tint="#fff5e2" className="bg-butter desk:hidden">
-      <div className="mx-auto max-w-[1120px] px-6 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-[1120px] px-6 pb-16 pt-6 md:px-10 md:py-24">
         <header className="flex flex-col items-center gap-[19px] text-center">
           <p className="eyebrow">building a healthier workplace culture</p>
           <h2 id="personas-title-m" className="text-[clamp(28px,7.4vw,40px)] font-bold leading-[1.25] tracking-[-0.015em] text-ink">

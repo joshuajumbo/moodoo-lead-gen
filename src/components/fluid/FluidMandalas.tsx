@@ -11,7 +11,7 @@ import { PauseButton } from "@/components/mandala/PauseButton";
  */
 export function FluidMandalas() {
   return (
-    <section aria-labelledby="mandalas-title-m" data-nav-tint="#d6e7eb" className="relative overflow-hidden bg-lagoon pb-16 pt-16 text-white md:pb-24 md:pt-24 desk:hidden">
+    <section aria-labelledby="mandalas-title-m" data-nav-tint="#d6e7eb" className="relative overflow-hidden bg-lagoon pb-16 pt-6 text-white md:pb-24 md:pt-24 desk:hidden">
       <MandalaCycle>
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
       <div className="relative mx-auto flex max-w-[720px] flex-col items-center gap-4 px-6 text-center md:gap-6">
