@@ -31,7 +31,7 @@ export function FluidHero({ proof }: { proof: Proof }) {
   return (
     <section aria-labelledby="hero-title-m" data-nav-tint="#fff5e2" className="relative overflow-hidden bg-butter desk:hidden">
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#f8a706" }} />
-      <div className="relative mx-auto grid max-w-[1120px] px-6 pb-16 pt-[104px] md:px-10 md:pb-24 md:pt-[136px] lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-10 lg:pb-28 lg:pt-[148px]">
+      <div className="relative mx-auto grid max-w-[1120px] px-6 pb-16 pt-[117px] md:px-10 md:pb-24 md:pt-[136px] lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-10 lg:pb-28 lg:pt-[148px]">
         <div className="flex max-w-[564px] flex-col gap-[28px] md:gap-[32px]">
           <div className="flex flex-col items-start gap-[19px]">
             <p style={d(INTRO.eyebrow)} className="eyebrow intro-fade max-md:!whitespace-normal max-md:!rounded-[14px] max-md:!py-[6px] max-md:!text-left max-md:!text-[10.5px] max-md:!leading-[15px]">

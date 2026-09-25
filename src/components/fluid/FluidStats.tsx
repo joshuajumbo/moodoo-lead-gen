@@ -8,7 +8,7 @@ export function FluidStats() {
     <section id="why-moodoo-m" aria-labelledby="stats-title-m" data-nav-tint="#dfe4da" className="relative overflow-hidden bg-sage text-white desk:hidden">
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
       <StatFocusProvider>
-      <div className="relative mx-auto max-w-[1120px] px-6 py-20 md:px-10 md:py-24 lg:py-28">
+      <div className="relative mx-auto max-w-[1120px] px-6 py-16 md:px-10 md:py-24 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,549px)_minmax(0,1fr)] lg:items-center lg:gap-16">
           <blockquote>
             <svg aria-hidden className="mb-4 md:mb-5" width="28" height="30" viewBox="0 0 28 30" fill="none">
