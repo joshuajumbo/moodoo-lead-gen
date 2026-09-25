@@ -61,7 +61,7 @@ export function FluidWhat() {
     <section id="what-is-moodoo-m" aria-labelledby="what-title-m" data-nav-tint="#fff5e2" className="relative overflow-hidden desk:hidden">
       <Image src="/img/photos/office-team.jpg" alt="" fill sizes="100vw" quality={80} className="object-cover" />
       <div className="relative mx-auto max-w-[1233px] px-3 pb-3 pt-[168px] sm:px-6 sm:pb-6 sm:pt-[220px] md:px-10 md:py-16">
-        <div className="bg-cream pb-10 pt-10 md:pb-14 md:pt-14">
+        <div className="bg-cream pb-6 pt-6 md:pb-14 md:pt-14">
           <header className="flex max-w-[612px] flex-col items-start gap-[19px] px-6 md:px-10 lg:px-14">
             <p className="eyebrow">What is moodoo</p>
             <div className="flex flex-col gap-[16px] md:gap-[21px]">
