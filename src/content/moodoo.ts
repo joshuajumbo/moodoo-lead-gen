@@ -62,7 +62,6 @@ export const PERSONAS = [
 export const NAV = [
   { label: "What is Moodoo", href: "#what-is-moodoo" },
   { label: "Why Moodoo", href: "#why-moodoo" },
-  { label: "The Statistics", href: "#statistics" },
   { label: "For Managers", href: "#for-managers" },
   { label: "For Remote Teams", href: "#for-remote" },
   { label: "For Creatives", href: "#for-creatives" },
