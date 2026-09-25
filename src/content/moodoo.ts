@@ -34,6 +34,20 @@ export const WHAT_CHIP: Chip & { x: number; y: number; node: string } = {
   x: 809 + 247 - 813, y: 862 + 243 - 863.75, node: "801:250338",
 };
 
+/**
+ * The What-section chip walks through who Moodoo is for, one persona per state
+ * (intro + chapters 01–04). Index 0 is Figma's chip (801:250338); the rest cover
+ * the audiences from "Built for the people" (the hero already shows a Manager).
+ * Chip colours and label tones come from Figma's three chips.
+ */
+export const CHAPTER_CHIPS: Chip[] = [
+  { role: "Customer support", name: "Ishaan Kabir", bg: "#95a38b", label: "#386570" },
+  { role: "Remote engineer", name: "Meera Nair", bg: "#7daeb9", label: "#386570" },
+  { role: "People & culture", name: "Priya Raman", bg: "#c4bd74", label: "#cf8516" },
+  { role: "Creative lead", name: "Rohan Mehta", bg: "#95a38b", label: "#386570" },
+  { role: "Founder", name: "Aarav Kapoor", bg: "#7daeb9", label: "#386570" },
+];
+
 export const CHAPTERS: { id: string; number?: string; title: string; body: string[]; screen: ScreenId }[] = [
   {
     id: "intro",

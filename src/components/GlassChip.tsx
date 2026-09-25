@@ -52,3 +52,33 @@ export function ChipText({ role, name, label, opacity }: Pick<Chip, "role" | "na
     </motion.div>
   );
 }
+
+/**
+ * A stack of persona faces; `active` picks one. The outgoing face lifts out,
+ * then the incoming one rises in after a short beat, so text never overlaps.
+ */
+export function ChipFaces({ chips, active, opacity }: { chips: Chip[]; active: number; opacity?: MotionValue<number> }) {
+  return (
+    <motion.div className="absolute inset-0" style={{ opacity }}>
+      {chips.map((c, i) => {
+        const on = i === active;
+        return (
+          <div
+            key={c.name}
+            aria-hidden={!on}
+            className="absolute inset-0"
+            style={{
+              opacity: on ? 1 : 0,
+              translate: on ? "0 0" : i < active ? "0 -6px" : "0 6px",
+              transition: on
+                ? "opacity 320ms ease-out 140ms, translate 420ms var(--ease-expo) 140ms"
+                : "opacity 160ms ease-in, translate 200ms ease-in",
+            }}
+          >
+            <ChipText role={c.role} name={c.name} label={c.label} />
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+}

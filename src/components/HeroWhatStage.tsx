@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, useAnimationFrame, useMotionValue, useScroll, useTransform, useMotionValueEvent } from "motion/react";
+import { animate, motion, useAnimationFrame, useMotionValue, useScroll, useTransform, useMotionValueEvent } from "motion/react";
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
 import { PhoneScreens } from "@/components/phone/PhoneScreens";
-import { ChipText, GlassChip } from "@/components/GlassChip";
+import { ChipFaces, ChipText, GlassChip } from "@/components/GlassChip";
 import { INTRO, Line, d } from "@/components/intro";
 import { SocialProof } from "@/components/SocialProof";
 import type { SocialProof as Proof } from "@/lib/social-proof";
-import { CHAPTERS, HERO_CHIPS, HERO_CYCLE, HERO_CYCLE_MS, WHAT_CHIP, type ScreenId } from "@/content/moodoo";
+import { CHAPTER_CHIPS, CHAPTERS, HERO_CHIPS, HERO_CYCLE, HERO_CYCLE_MS, WHAT_CHIP, type ScreenId } from "@/content/moodoo";
 
 /* ── Geometry, in 1440-frame px, straight from Figma ─────────────────────────
  * Hero phone 807:345634: rotated bbox 819,169 235×467 → unrotated 823,170.75
@@ -42,6 +42,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const [active, setActive] = useState(0);
   const [cycleIndex, setCycleIndex] = useState(0);
   const [handedOff, setHandedOff] = useState(false);
+  const [inPanel, setInPanel] = useState(false); // hand-off complete: chip follows the active chapter
   const [reduced, setReduced] = useState(false);
   const [isDesk, setIsDesk] = useState(false);
 
@@ -90,6 +91,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
       const p = clamp01((y - s0) / Math.max(1, s1 - s0));
       progress.set(p);
       setHandedOff(p >= 0.5);
+      setInPanel(p >= 0.999);
 
       // reading line sits in the phone's lower third
       const line = pinTop + 390;
@@ -133,6 +135,15 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const rightChipX = useTransform(progress, [0.15, 1], [HERO_CHIPS[1].x, WHAT_CHIP.x]);
   // one chip morphs: body colour interpolates, text swaps out-then-in (never overlapping)
   const chipBg = useTransform(progress, [0.45, 0.7], [HERO_CHIPS[1].bg, WHAT_CHIP.bg]);
+  // after the hand-off the chip eases between chapter personas; one motion value
+  // throughout, so the scroll-driven and state-driven colours never fight
+  const personaBg = useMotionValue(CHAPTER_CHIPS[0].bg);
+  useEffect(() => {
+    const target = CHAPTER_CHIPS[inPanel ? active : 0].bg;
+    const c = animate(personaBg, target, { duration: 0.48, ease: [0.22, 1, 0.36, 1] });
+    return () => c.stop();
+  }, [active, inPanel, personaBg]);
+  const liveChipBg = useTransform(() => (progress.get() < 0.999 ? chipBg.get() : personaBg.get()));
   const managerText = useTransform(progress, [0.45, 0.55], [1, 0]);
   const supportText = useTransform(progress, [0.58, 0.7], [0, 1]);
 
@@ -271,9 +282,11 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
               {/* right chip travels to its What-section slot and changes persona */}
               <motion.div className="absolute left-0 top-0" style={{ x: rightChipX, y: rightChipY }}>
                 <div className="intro-chip absolute inset-0" style={d(INTRO.chips[1])}>
-                  <GlassChip bg={chipBg} style={{ left: 0, top: 0 }}>
+                  {/* while scrubbing the hand-off the colour is scroll-driven; once in the
+                      panel it eases between chapter personas */}
+                  <GlassChip bg={liveChipBg} style={{ left: 0, top: 0 }}>
                     <ChipText {...HERO_CHIPS[1]} opacity={managerText} />
-                    <ChipText {...WHAT_CHIP} opacity={supportText} />
+                    <ChipFaces chips={CHAPTER_CHIPS} active={inPanel ? active : 0} opacity={supportText} />
                   </GlassChip>
                 </div>
               </motion.div>
