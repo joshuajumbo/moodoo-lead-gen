@@ -60,22 +60,28 @@ export async function notifyNewSignup(lead: WaitlistInput) {
   </div></body></html>`;
   const text = `${who} just joined the Moodoo waitlist${total ? ` (#${total})` : ""}.\n\n${filled.map(([k, v]) => `${k}: ${v}`).join("\n")}`;
 
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: process.env.NOTIFY_FROM || "Moodoo Waitlist <onboarding@resend.dev>",
-        to,
-        reply_to: lead.work_email,
-        subject: `New sign-up: ${who}${total ? ` (#${total})` : ""}`,
-        html,
-        text,
-      }),
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) console.error("[notify] resend rejected", res.status, (await res.text()).slice(0, 300));
-  } catch (err) {
-    console.error("[notify] send failed", err instanceof Error ? err.message : err);
+  // One send per recipient: Resend rejects a whole message if any address is
+  // disallowed (e.g. the test sender before a domain is verified), so separate
+  // sends keep one bad address from blocking everyone else. Sequential to stay
+  // inside Resend's free-tier rate limit.
+  for (const recipient of to) {
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: process.env.NOTIFY_FROM || "Moodoo Waitlist <onboarding@resend.dev>",
+          to: [recipient],
+          reply_to: lead.work_email,
+          subject: `New sign-up: ${who}${total ? ` (#${total})` : ""}`,
+          html,
+          text,
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) console.error(`[notify] resend rejected ${recipient}`, res.status, (await res.text()).slice(0, 300));
+    } catch (err) {
+      console.error(`[notify] send to ${recipient} failed`, err instanceof Error ? err.message : err);
+    }
   }
 }
