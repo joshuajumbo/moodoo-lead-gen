@@ -1,6 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
+import { notifyNewSignup } from "@/lib/notify";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { checkFormToken, issueFormToken } from "@/lib/form-token";
 import { waitlistSchema, type WaitlistState, type WaitlistInput } from "@/lib/waitlist-schema";
@@ -48,6 +50,9 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
   }
   // new sign-up: refresh the hero's count and first-four initials
   revalidatePath("/");
+  // email the team once the visitor's response is on its way
+  const lead = parsed.data;
+  after(() => notifyNewSignup(lead));
   return { status: "success" };
 }
 
