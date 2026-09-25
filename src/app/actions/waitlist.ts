@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { checkFormToken, issueFormToken } from "@/lib/form-token";
 import { waitlistSchema, type WaitlistState, type WaitlistInput } from "@/lib/waitlist-schema";
@@ -45,6 +46,8 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
     console.error("[waitlist] insert failed", { code: error.code, message: error.message });
     return { status: "error", message: "We couldn't save your details. Try again in a moment." };
   }
+  // new sign-up: refresh the hero's count and first-four initials
+  revalidatePath("/");
   return { status: "success" };
 }
 

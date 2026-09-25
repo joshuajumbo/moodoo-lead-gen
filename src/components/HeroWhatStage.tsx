@@ -6,6 +6,8 @@ import { motion, useAnimationFrame, useMotionValue, useScroll, useTransform, use
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
 import { PhoneScreens } from "@/components/phone/PhoneScreens";
 import { ChipText, GlassChip } from "@/components/GlassChip";
+import { SocialProof } from "@/components/SocialProof";
+import type { SocialProof as Proof } from "@/lib/social-proof";
 import { CHAPTERS, HERO_CHIPS, HERO_CYCLE, HERO_CYCLE_MS, WHAT_CHIP, type ScreenId } from "@/content/moodoo";
 
 /* ── Geometry, in 1440-frame px, straight from Figma ─────────────────────────
@@ -30,7 +32,7 @@ function useIsomorphicLayoutEffect(fn: React.EffectCallback, deps: React.Depende
   (typeof window === "undefined" ? useEffect : useLayoutEffect)(fn, deps);
 }
 
-export function HeroWhatStage() {
+export function HeroWhatStage({ proof }: { proof: Proof }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const whatRef = useRef<HTMLElement>(null);
   const blockRefs = useRef<(HTMLElement | null)[]>([]);
@@ -159,7 +161,7 @@ export function HeroWhatStage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/img/icons/arrow.svg" alt="" width={14} height={14} className="btn-arrow" />
               </a>
-              <SocialProof />
+              <SocialProof {...proof} />
             </div>
           </div>
         </div>
@@ -258,40 +260,6 @@ export function HeroWhatStage() {
           </motion.div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function SocialProof() {
-  const people = [
-    { l: "S", c: "#e07f2a", bg: "rgb(255 157 72 / 0.13)", bd: "rgb(255 157 72 / 0.35)" },
-    { l: "P", c: "#2e7868", bg: "rgb(78 166 146 / 0.13)", bd: "rgb(78 166 146 / 0.35)" },
-    { l: "R", c: "#4f3e5e", bg: "rgb(109 89 122 / 0.13)", bd: "rgb(109 89 122 / 0.35)" },
-    { l: "M", c: "#043a4e", bg: "rgb(4 58 78 / 0.13)", bd: "rgb(4 58 78 / 0.35)" },
-  ];
-  return (
-    <div className="flex items-center gap-[16px]">
-      <div aria-hidden className="flex items-center">
-        {people.map((p, i) => (
-          <span
-            key={p.l}
-            className="relative grid size-[30px] place-items-center rounded-full border text-[11px] font-bold leading-[16.5px] tracking-[0.11px]"
-            style={{
-              color: p.c,
-              background: p.bg,
-              borderColor: p.bd,
-              marginRight: i < people.length - 1 ? -8 : 0,
-              boxShadow: "0 0 0 1.5px #e8f0e5",
-            }}
-          >
-            {p.l}
-          </span>
-        ))}
-      </div>
-      <p className="text-[13px] leading-[19.5px] text-ink-soft">
-        <span className="font-bold">847</span>
-        <span className="text-ink-soft/60"> already on the list</span>
-      </p>
     </div>
   );
 }
