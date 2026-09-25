@@ -1,6 +1,8 @@
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
-import { PhoneScreens } from "@/components/phone/PhoneScreens";
-import { MandalaStrip } from "@/components/MandalaStrip";
+import { MandalaCycle } from "@/components/mandala/Cycle";
+import { CheckinScreen } from "@/components/mandala/CheckinScreen";
+import { MandalaConveyor } from "@/components/mandala/MandalaConveyor";
+import { PauseButton } from "@/components/mandala/PauseButton";
 
 /**
  * Mandalas below 1280px. The composition survives intact — phone centred on
@@ -10,6 +12,7 @@ import { MandalaStrip } from "@/components/MandalaStrip";
 export function FluidMandalas() {
   return (
     <section aria-labelledby="mandalas-title-m" data-nav-tint="#d6e7eb" className="relative overflow-hidden bg-lagoon pb-20 pt-20 text-white md:pb-24 md:pt-24 desk:hidden">
+      <MandalaCycle>
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
       <div className="relative mx-auto flex max-w-[720px] flex-col items-center gap-4 px-6 text-center md:gap-6">
         <h2 id="mandalas-title-m" className="text-[clamp(28px,7vw,40px)] font-bold leading-[1.25] tracking-[-0.015em]">
@@ -22,11 +25,11 @@ export function FluidMandalas() {
       </div>
 
       <div className="relative mt-12 h-[395px] md:mt-16 md:h-[488px]">
-        <MandalaStrip className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 [--g:4px] [--sp:150px] [--t:112px] md:[--sp:183px] md:[--t:159px]" />
+        <MandalaConveyor className="absolute inset-x-0 top-1/2 -translate-y-1/2 [--g:4px] [--sp:150px] [--t:112px] md:[--sp:183px] md:[--t:159px]" />
         <div className="absolute left-1/2 top-1/2 h-[371px] w-[182px] -translate-x-1/2 -translate-y-1/2 md:h-[463.5px] md:w-[227px]">
           <div className="origin-top-left [transform:scale(0.8)_rotate(-1deg)] md:[transform:rotate(-1deg)]">
             <PhoneBezel>
-              <PhoneScreens active="mid" screens={["mid"]} />
+              <CheckinScreen />
             </PhoneBezel>
           </div>
         </div>
@@ -43,6 +46,8 @@ export function FluidMandalas() {
           </div>
         ))}
       </div>
+      <PauseButton className="absolute bottom-6 right-6 md:bottom-8 md:right-10" />
+      </MandalaCycle>
     </section>
   );
 }

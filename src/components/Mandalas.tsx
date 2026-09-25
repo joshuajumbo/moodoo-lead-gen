@@ -1,6 +1,8 @@
 import { PhoneBezel } from "@/components/phone/PhoneBezel";
-import { PhoneScreens } from "@/components/phone/PhoneScreens";
-import { MandalaStrip } from "@/components/MandalaStrip";
+import { MandalaCycle } from "@/components/mandala/Cycle";
+import { CheckinScreen } from "@/components/mandala/CheckinScreen";
+import { MandalaConveyor } from "@/components/mandala/MandalaConveyor";
+import { PauseButton } from "@/components/mandala/PauseButton";
 
 /**
  * "Introducing Moodoo Mandalas" (807:324061). 1440 × 900 on lagoon.
@@ -20,6 +22,7 @@ export function Mandalas() {
       className="relative hidden h-[900px] overflow-hidden bg-lagoon text-white desk:block"
     >
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
+      <MandalaCycle>
       <div className="relative h-full w-[1440px]" style={{ marginLeft: "calc(50% - 720px)" }}>
         <h2
           id="mandalas-title"
@@ -33,7 +36,7 @@ export function Mandalas() {
           using pleasantness and energy to capture your current experience
         </p>
 
-        <MandalaStrip className="absolute left-1/2 top-[423px] -translate-x-1/2 [--g:4px] [--sp:183px] [--t:159px]" />
+        <MandalaConveyor className="absolute left-0 top-[423px] [--g:4px] [--sp:183px] [--t:159px]" />
 
         <div className="absolute left-[140px] top-[650px] flex w-[404px] flex-col gap-[12px]">
           <h3 className="text-[22px] font-extrabold leading-[26px]">Pleasantness</h3>
@@ -51,11 +54,13 @@ export function Mandalas() {
             style={{ top: 170.75, marginTop: PHONE.y, marginLeft: PHONE.x, width: PHONE.w, height: PHONE.h, transform: "rotate(-1deg)" }}
           >
             <PhoneBezel>
-              <PhoneScreens active="mid" screens={["mid"]} />
+              <CheckinScreen />
             </PhoneBezel>
           </div>
         </div>
+        <PauseButton className="absolute bottom-[40px] right-[140px]" />
       </div>
+      </MandalaCycle>
     </section>
   );
 }
