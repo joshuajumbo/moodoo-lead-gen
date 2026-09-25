@@ -104,8 +104,13 @@ export function FluidWhat() {
                   <div className="relative mx-6 mb-7 mt-1 pl-[22px]">
                     <span
                       aria-hidden
-                      className="absolute left-0 top-0 h-full w-[3px]"
-                      style={{ background: "linear-gradient(180deg, #e3c804 0%, #ffffff 100%)" }}
+                      className="absolute left-0 top-0 h-full w-[3px] origin-top"
+                      style={{
+                        background: "linear-gradient(180deg, #e3c804 0%, #ffffff 100%)",
+                        opacity: i === active ? 1 : 0,
+                        scale: i === active ? "1 1" : "1 0.35",
+                        transition: "opacity 300ms ease-out, scale 500ms var(--ease-expo)",
+                      }}
                     />
                     <p className="text-[15px] leading-[24px] text-ink-muted">{c.number}</p>
                     <h3 className="mt-[6px] text-[clamp(24px,6.4vw,28px)] font-bold leading-[1.18] tracking-[-0.015em] text-ink">{c.title}</h3>

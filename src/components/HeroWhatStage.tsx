@@ -219,10 +219,16 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
                   style={{ opacity: active === i + 1 ? 1 : 0.32 }}
                   aria-current={active === i + 1 ? "step" : undefined}
                 >
+                  {/* rail marks the active chapter only: grows down on arrival, fades on departure */}
                   <span
                     aria-hidden
-                    className="absolute left-[-2px] top-0 h-[118px] w-[4px]"
-                    style={{ background: "linear-gradient(180deg, #e3c804 0%, #fff5e2 100%)" }}
+                    className="absolute left-[-2px] top-0 h-[118px] w-[4px] origin-top"
+                    style={{
+                      background: "linear-gradient(180deg, #e3c804 0%, #fff5e2 100%)",
+                      opacity: active === i + 1 ? 1 : 0,
+                      scale: active === i + 1 ? "1 1" : "1 0.35",
+                      transition: "opacity 300ms ease-out, scale 500ms var(--ease-expo)",
+                    }}
                   />
                   <span aria-hidden className="w-0 shrink-0" />
                   <div className="flex w-[566px] flex-col gap-[8px]">
