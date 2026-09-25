@@ -1,10 +1,13 @@
-import { GrowthChart } from "@/components/Stats";
+import { GrowthChart } from "@/components/stats/GrowthChart";
+import { StatFocusProvider } from "@/components/stats/StatFocus";
+import { StatItems } from "@/components/stats/StatItems";
 
 /** Burnout stats below 1280px: quote and chart pair up from 1024, stack below. */
 export function FluidStats() {
   return (
     <section id="why-moodoo-m" aria-labelledby="stats-title-m" data-nav-tint="#dfe4da" className="relative overflow-hidden bg-sage text-white desk:hidden">
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
+      <StatFocusProvider>
       <div className="relative mx-auto max-w-[1120px] px-6 py-20 md:px-10 md:py-24 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,549px)_minmax(0,1fr)] lg:items-center lg:gap-16">
           <blockquote>
@@ -24,17 +27,10 @@ export function FluidStats() {
         </div>
 
         <dl id="statistics-m" className="mt-16 grid max-w-[812px] gap-10 sm:grid-cols-2 sm:gap-8 lg:mt-20">
-          {[
-            { v: "40%", d: "of employees globally experienced significant stress the previous day" },
-            { v: "22%", d: "of employees globally experienced loneliness the previous day" },
-          ].map((s) => (
-            <div key={s.v} className="flex flex-col-reverse gap-4 md:gap-8">
-              <dd className="max-w-[356px] text-[16px] leading-[26px]">{s.d}</dd>
-              <dt className="text-[clamp(52px,14vw,64px)] font-bold leading-[0.78] tracking-[-0.01em]">{s.v}</dt>
-            </div>
-          ))}
+          <StatItems variant="fluid" />
         </dl>
       </div>
+      </StatFocusProvider>
     </section>
   );
 }
