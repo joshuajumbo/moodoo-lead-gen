@@ -20,7 +20,10 @@ export function FluidMandalas() {
         </h2>
         <p className="max-w-[560px] text-[16px] font-bold leading-[1.5] tracking-[-0.02em] text-white/80 md:text-[18px] md:leading-[26.4px]">
           Explore how you feel through Moodoo’s intuitive mood interface, using pleasantness and energy to capture your current
-          experience
+          experience.
+        </p>
+        <p className="max-w-[560px] text-[16px] font-bold leading-[1.5] tracking-[-0.02em] text-white/80 md:text-[18px] md:leading-[26.4px]">
+          Every check-in creates a Moodoo Mandala, a visual expression of how someone feels in that moment.
         </p>
       </div>
 

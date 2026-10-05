@@ -12,7 +12,7 @@ export function Stats() {
     <section
       id="why-moodoo"
       data-nav-tint="#dfe4da"
-      className="relative hidden h-[723px] overflow-hidden bg-sage text-white desk:block"
+      className="relative hidden h-[820px] overflow-hidden bg-sage text-white desk:block"
       aria-labelledby="stats-title"
     >
       <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#244b65" }} />
@@ -24,13 +24,14 @@ export function Stats() {
           <path d="M23.8398 4.12L16.8398 28.12" stroke="white" strokeWidth="8" />
         </svg>
 
+        <p className="eyebrow absolute left-[140px] top-[60px]">The emotional side of work is often invisible</p>
         <blockquote className="absolute left-[140px] top-[125px] w-[549px]">
           <p id="stats-title" className="text-[40px] font-bold leading-[50px] tracking-[-0.6px]">
-            The emotional experience of work is often invisible but the data shows it matters.
+            What people feel at work shapes how they collaborate, contribute and stay connected.
           </p>
-          <footer className="absolute left-0 top-[182px] whitespace-nowrap text-[18px] font-bold leading-[26.4px] tracking-[-0.6px] text-white/80">
+          <footer className="mt-[32px] whitespace-nowrap text-[18px] font-bold leading-[26.4px] tracking-[-0.6px] text-white/80">
             Source:{"\u00a0\u00a0"}
-            <cite className="not-italic">Gallup, State of the Global Workplace 2026</cite>. Data collected in 2025
+            <cite className="not-italic">Gallup, State of the Global Workplace 2026</cite>
           </footer>
         </blockquote>
 
@@ -39,6 +40,11 @@ export function Stats() {
         <dl id="statistics" className="absolute left-[140px] top-[464px] flex gap-[100px]">
           <StatItems variant="desk" />
         </dl>
+
+        <p className="absolute left-[140px] top-[680px] w-[700px] text-[22px] font-semibold leading-[1.45] tracking-[-0.2px]">
+          But emotional signals are not only warning signs. They can also reveal when teams feel energised, connected and
+          worth celebrating.
+        </p>
       </div>
       </StatFocusProvider>
     </section>

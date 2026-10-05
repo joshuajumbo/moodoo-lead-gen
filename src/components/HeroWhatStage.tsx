@@ -17,14 +17,13 @@ import { CHAPTER_CHIPS, CHAPTERS, HERO_CHIPS, HERO_CYCLE, HERO_CYCLE_MS, WHAT_CH
  * What section 799:139684 starts at y 745; panel 1233×1165 at 104,62 (state frames 801:154494…)
  * Last chapter block ends at panel y 1129 — the phone releases there.
  */
-const HERO_H = 745;
-const WHAT_H = 1289;
-const PANEL = { x: 104, y: 62, w: 1233, h: 1165 };
+const HERO_H = 800; // Figma 745; +55 for the two-paragraph caption (copy keeps Figma's ~45px bottom margin)
+const PANEL = { x: 104, y: 62, w: 1233, minH: 1165 }; // Figma's panel height is now a minimum: copy can grow it
 const PHONE_W = 227;
 const PHONE_H = 463.5;
-const HERO_PHONE = { x: 823, y: 170.75 };
+const HERO_PHONE = { x: 823, y: 198.25 }; // Figma 170.75, re-centred by half the hero growth
 const SLOT = { x: 813, y: PANEL.y + 56.75 }; // relative to What section top
-const TRACK_END = HERO_H + PANEL.y + 1129;
+const TRACK_END_FIGMA = HERO_H + PANEL.y + 1129; // fallback until measured: last chapter's bottom
 const ALL_SCREENS: ScreenId[] = ["high", "mid", "low", "dash", "insights", "resources", "culture"];
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -39,6 +38,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   const blockRefs = useRef<(HTMLElement | null)[]>([]);
 
   const [pinTop, setPinTop] = useState(HERO_PHONE.y);
+  const [trackEnd, setTrackEnd] = useState(TRACK_END_FIGMA); // phone releases at the last chapter's bottom
   const [active, setActive] = useState(0);
   const [cycleIndex, setCycleIndex] = useState(0);
   const [handedOff, setHandedOff] = useState(false);
@@ -60,6 +60,8 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
     const s0 = stageTop + HERO_PHONE.y - top;
     const s1 = stageTop + HERO_H + SLOT.y - top;
     range.current = { s0, s1 };
+    const last = blockRefs.current[blockRefs.current.length - 1];
+    if (last) setTrackEnd(last.getBoundingClientRect().bottom + window.scrollY - stageTop);
   }, []);
 
   useIsomorphicLayoutEffect(() => {
@@ -150,27 +152,30 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
   return (
     <div ref={stageRef} className="relative hidden overflow-x-clip desk:block">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section data-nav-tint="#fff5e2" className="relative h-[745px] overflow-hidden bg-butter" aria-labelledby="hero-title">
+      <section data-nav-tint="#fff5e2" className="relative h-[800px] overflow-hidden bg-butter" aria-labelledby="hero-title">
         <div aria-hidden className="dot-field" style={{ ["--dot" as string]: "#f8a706" }} />
         <div className="relative mx-auto h-full w-[1440px] max-w-none" style={{ marginLeft: "calc(50% - 720px)" }}>
           <div className="absolute left-[140px] top-[128px] flex w-[564px] flex-col gap-[32px]">
             <div className="flex flex-col items-start gap-[19px]">
-              <p className="eyebrow intro-fade" style={d(INTRO.eyebrow)}>For teams, managers, and organizations building healthier ways of working.</p>
+              <p className="eyebrow intro-fade" style={d(INTRO.eyebrow)}>For people leaders building healthier teams</p>
               <div className="flex flex-col gap-[21px]">
                 <h1 id="hero-title" className="flex flex-col gap-[2px] text-[64px] leading-[64px]">
                   <span className="font-bold tracking-[-1.104px] text-ink">
                     <Line delay={INTRO.lines[0]}>Understand how</Line>
-                    <Line delay={INTRO.lines[1]}>your team feels</Line>
+                    <Line delay={INTRO.lines[1]}>your team feels.</Line>
                   </span>
                   <span className="font-normal tracking-[-0.39px] text-plum">
-                    <Line delay={INTRO.lines[2]}>Your team’s mood,</Line>
-                    <Line delay={INTRO.lines[3]}>made visible</Line>
+                    <Line delay={INTRO.lines[2]}>Know what to</Line>
+                    <Line delay={INTRO.lines[3]}>do next.</Line>
                   </span>
                 </h1>
-                <p className="intro-fade text-[18px] leading-[29.16px] text-ink-soft" style={d(INTRO.body)}>
-                  The small moments of stress, disconnection, and exhaustion don’t always show up in a meeting. Moodoo helps
-                  teams check in, understand their emotional patterns, and make space for better ways of working
-                </p>
+                <div className="intro-fade flex flex-col gap-[12px] text-[18px] leading-[29.16px] text-ink-soft" style={d(INTRO.body)}>
+                  <p>
+                    Moodoo gives teams a simple way to check in, while helping the people responsible for them understand
+                    patterns in mood, energy and team experience.
+                  </p>
+                  <p>Know when a team may need support, inspiration, recognition or simply a reason to celebrate.</p>
+                </div>
               </div>
             </div>
             <div className="flex flex-col items-start gap-[12px]">
@@ -192,24 +197,23 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
         id="what-is-moodoo"
         ref={whatRef}
         data-nav-tint="#fff5e2"
-        className="relative overflow-hidden"
-        style={{ height: WHAT_H }}
+        className="relative overflow-hidden py-[62px]"
         aria-labelledby="what-title"
       >
         <Image src="/img/photos/office-team.jpg" alt="" fill sizes="100vw" quality={85} className="object-cover" />
-        <div className="relative mx-auto h-full w-[1440px]" style={{ marginLeft: "calc(50% - 720px)" }}>
-          <div className="absolute bg-cream" style={{ left: PANEL.x, top: PANEL.y, width: PANEL.w, height: PANEL.h }}>
+        <div className="relative w-[1440px]" style={{ marginLeft: "calc(50% - 720px)" }}>
+          <div className="relative bg-cream px-[36px] py-[36px]" style={{ marginLeft: PANEL.x, width: PANEL.w, minHeight: PANEL.minH }}>
             <header
               ref={(el) => {
                 blockRefs.current[0] = el;
               }}
-              className="absolute left-[36px] top-[36px] flex w-[564px] flex-col items-start gap-[19px] transition-opacity duration-300 ease-out"
+              className="flex w-[564px] flex-col items-start gap-[19px] transition-opacity duration-300 ease-out"
               style={{ opacity: active === 0 ? 1 : 0.32 }}
             >
               <p className="eyebrow">What is moodoo</p>
               <div className="flex flex-col gap-[21px]">
-                <h2 id="what-title" className="w-[499.283px] text-[40px] font-bold leading-[50px] tracking-[-0.6px] text-ink">
-                  Some things don’t show up in a status update
+                <h2 id="what-title" className="w-[540px] text-[40px] font-bold leading-[50px] tracking-[-0.6px] text-ink">
+                  The emotional pulse of your workplace, without another survey.
                 </h2>
                 {CHAPTERS[0].body.map((p) => (
                   <p key={p} className="text-[16px] leading-[26px] text-ink-muted">
@@ -219,7 +223,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
               </div>
             </header>
 
-            <ol className="absolute left-[36px] top-[437px] flex w-[602px] flex-col gap-[56px]">
+            <ol className="mt-[55px] flex w-[602px] flex-col gap-[56px]">
               {CHAPTERS.slice(1).map((c, i) => (
                 <li
                   key={c.id}
@@ -233,7 +237,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
                   {/* rail marks the active chapter only: grows down on arrival, fades on departure */}
                   <span
                     aria-hidden
-                    className="absolute left-[-2px] top-0 h-[118px] w-[4px] origin-top"
+                    className="absolute inset-y-0 left-[-2px] w-[4px] origin-top"
                     style={{
                       background: "linear-gradient(180deg, #e3c804 0%, #fff5e2 100%)",
                       opacity: active === i + 1 ? 1 : 0,
@@ -255,7 +259,7 @@ export function HeroWhatStage({ proof }: { proof: Proof }) {
       </section>
 
       {/* ── The persistent phone ─────────────────────────────── */}
-      <div aria-hidden={false} className="pointer-events-none absolute inset-x-0 top-0" style={{ height: TRACK_END }}>
+      <div aria-hidden={false} className="pointer-events-none absolute inset-x-0 top-0" style={{ height: trackEnd }}>
         <div className="relative mx-auto h-full w-[1440px]" style={{ marginLeft: "calc(50% - 720px)" }}>
           <motion.div
             className="sticky"

@@ -3,12 +3,12 @@ import { manrope, dmSans } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Moodoo — Understand how your team feels",
+  title: "Moodoo — Understand how your team feels. Know what to do next.",
   description:
-    "Moodoo helps teams check in, understand their emotional patterns, and make space for better ways of working. Join early access.",
+    "Moodoo gives teams a simple way to check in, while helping people leaders understand patterns in mood, energy and team experience. Join early access.",
   openGraph: {
-    title: "Moodoo — Your team's mood, made visible",
-    description: "Simple, everyday check-ins that help teams understand how work feels.",
+    title: "Moodoo — The emotional pulse of your workplace",
+    description: "Know when a team may need support, inspiration, recognition or simply a reason to celebrate.",
     type: "website",
   },
 };

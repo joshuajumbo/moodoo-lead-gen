@@ -5,7 +5,7 @@ import { PERSONAS } from "@/content/moodoo";
  * "Built for the people" below 1280px. No pinning: the office photo becomes the
  * first tile of the grid (it pairs with card 01 from 768px, giving 3 even rows).
  */
-const ANCHOR: Record<string, string> = { managers: "for-managers-m", remote: "for-remote-m", creatives: "for-creatives-m" };
+const ANCHOR: Record<string, string> = { "people-culture": "for-people-culture-m", founders: "for-founders-m", managers: "for-managers-m" };
 
 export function FluidPersonas() {
   return (
@@ -16,14 +16,14 @@ export function FluidPersonas() {
           <h2 id="personas-title-m" className="text-[clamp(28px,7.4vw,40px)] font-bold leading-[1.25] tracking-[-0.015em] text-ink">
             Built for the people
             <br />
-            shaping how work feels
+            shaping how work feels.
           </h2>
         </header>
 
         <ol className="mt-12 grid gap-4 md:mt-14 md:grid-cols-2">
           <li aria-hidden className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[420px]">
             <Image
-              src="/img/photos/office-team.jpg"
+              src="/img/photos/persona-03-remote-hybrid.jpg"
               alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

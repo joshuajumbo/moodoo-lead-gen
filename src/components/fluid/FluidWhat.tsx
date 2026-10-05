@@ -65,8 +65,8 @@ export function FluidWhat() {
           <header className="flex max-w-[612px] flex-col items-start gap-[19px] px-6 md:px-10 lg:px-14">
             <p className="eyebrow">What is moodoo</p>
             <div className="flex flex-col gap-[16px] md:gap-[21px]">
-              <h2 id="what-title-m" className="max-w-[499px] text-[clamp(30px,7.6vw,40px)] font-bold leading-[1.25] tracking-[-0.015em] text-ink">
-                Some things don’t show up in a status update
+              <h2 id="what-title-m" className="max-w-[540px] text-[clamp(30px,7.6vw,40px)] font-bold leading-[1.25] tracking-[-0.015em] text-ink">
+                The emotional pulse of your workplace, without another survey.
               </h2>
               {CHAPTERS[0].body.map((p) => (
                 <p key={p} className="text-[16px] leading-[26px] text-ink-muted">

@@ -35,7 +35,7 @@ for (let k = 0; k <= STEPS; k++) {
 const NAV_CLEAR = 53;
 
 // nav anchors land on the middle of a card's dwell
-const anchorFor: Record<string, string> = { managers: "for-managers", remote: "for-remote", creatives: "for-creatives" };
+const anchorFor: Record<string, string> = { "people-culture": "for-people-culture", founders: "for-founders", managers: "for-managers" };
 
 export function Personas() {
   const ref = useRef<HTMLElement>(null);
@@ -63,13 +63,13 @@ export function Personas() {
             <h2 id="personas-title" className="whitespace-nowrap text-center text-[40px] font-bold leading-[50px] tracking-[-0.6px] text-ink">
               Built for the people
               <br />
-              shaping how work feels
+              shaping how work feels.
             </h2>
           </header>
 
           {/* state frames 807:323431… use 451 × 655 here (main page shows 475 × 603) */}
           <div className="absolute left-[140px] top-[286px] h-[655px] w-[451px] overflow-hidden">
-            <Image src="/img/photos/office-team.jpg" alt="Two colleagues at a shared desk late in the day, one resting his head in his hand" fill sizes="451px" quality={85} className="object-cover" />
+            <Image src="/img/photos/persona-03-remote-hybrid.jpg" alt="A team working together in the office, joined by colleagues on a video call" fill sizes="451px" quality={85} className="object-cover" />
           </div>
 
           <div className="absolute bottom-0 left-[647px] top-[286px] w-[653px] overflow-hidden">

@@ -35,7 +35,7 @@ export function FluidHero({ proof }: { proof: Proof }) {
         <div className="flex max-w-[564px] flex-col gap-[28px] md:gap-[32px]">
           <div className="flex flex-col items-start gap-[19px]">
             <p style={d(INTRO.eyebrow)} className="eyebrow intro-fade max-md:!whitespace-normal max-md:!rounded-[14px] max-md:!py-[6px] max-md:!text-left max-md:!text-[10.5px] max-md:!leading-[15px]">
-              For teams, managers, and organizations building healthier ways of working.
+              For people leaders building healthier teams
             </p>
             <div className="flex flex-col gap-[18px] md:gap-[21px]">
               <h1
@@ -44,17 +44,20 @@ export function FluidHero({ proof }: { proof: Proof }) {
               >
                 <span className="font-bold tracking-[-0.01725em] text-ink">
                   <Line delay={INTRO.lines[0]}>Understand how</Line>
-                  <Line delay={INTRO.lines[1]}>your team feels</Line>
+                  <Line delay={INTRO.lines[1]}>your team feels.</Line>
                 </span>
                 <span className="font-normal tracking-[-0.006em] text-plum">
-                  <Line delay={INTRO.lines[2]}>Your team’s mood,</Line>
-                  <Line delay={INTRO.lines[3]}>made visible</Line>
+                  <Line delay={INTRO.lines[2]}>Know what to</Line>
+                  <Line delay={INTRO.lines[3]}>do next.</Line>
                 </span>
               </h1>
-              <p className="intro-fade text-[17px] leading-[1.62] text-ink-soft md:text-[18px]" style={d(INTRO.body)}>
-                The small moments of stress, disconnection, and exhaustion don’t always show up in a meeting. Moodoo helps
-                teams check in, understand their emotional patterns, and make space for better ways of working
-              </p>
+              <div className="intro-fade flex flex-col gap-[12px] text-[17px] leading-[1.62] text-ink-soft md:text-[18px]" style={d(INTRO.body)}>
+                <p>
+                  Moodoo gives teams a simple way to check in, while helping the people responsible for them understand patterns in
+                  mood, energy and team experience.
+                </p>
+                <p>Know when a team may need support, inspiration, recognition or simply a reason to celebrate.</p>
+              </div>
             </div>
           </div>
           <div className="flex flex-col items-start gap-[12px]">

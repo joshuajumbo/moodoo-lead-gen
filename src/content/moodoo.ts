@@ -51,34 +51,32 @@ export const CHAPTER_CHIPS: Chip[] = [
 export const CHAPTERS: { id: string; number?: string; title: string; body: string[]; screen: ScreenId }[] = [
   {
     id: "intro",
-    title: "Some things don't show up in a status update",
+    title: "The emotional pulse of your workplace, without another survey.",
     body: [
-      "A project can be on track while the people working on it feel disconnected",
-      "Energy changes. Small frustrations build. People carry difficult moments into the rest of their day",
-      "Without a simple way to reflect on these experiences, patterns can be difficult to notice",
+      "People’s experience at work changes every day.",
+      "Moodoo creates a lightweight way for teams to express how they feel, while helping people leaders understand what is changing over time without constantly asking, surveying or monitoring individuals.",
     ],
     screen: "dash",
   },
-  { id: "check-ins", number: "01", title: "Mood Check-ins", body: ["Track individual and team moods through simple, everyday check-ins."], screen: "low" },
-  { id: "insights", number: "02", title: "Mood Insights", body: ["Visualize mood trends and patterns across individuals and teams"], screen: "insights" },
-  { id: "resources", number: "03", title: "Uplifting Resources", body: ["Share quotes, articles, games, and other resources to support teammates who may be feeling low"], screen: "resources" },
-  { id: "culture", number: "04", title: "Positive Team Culture", body: ["Encourage emotional awareness, empathy, and team connection through thoughtful activities and shared experiences."], screen: "culture" },
+  { id: "check-in", number: "01", title: "Check in, without filling a form", body: ["Employees capture how they feel through a quick, intuitive mood check-in that takes only a few seconds."], screen: "low" },
+  { id: "team", number: "02", title: "See how the team is doing", body: ["Moodoo turns individual check-ins into collective signals, helping people leaders understand shifts in mood, energy and team experience."], screen: "insights" },
+  { id: "respond", number: "03", title: "Respond to what the moment needs", body: ["A dip may call for support, a break or something uplifting. A high may be the right moment for recognition, appreciation or celebration."], screen: "culture" },
+  { id: "lift", number: "04", title: "Help the team lift each other", body: ["People can share music, articles, memes, activities and small moments of inspiration with teammates."], screen: "resources" },
 ];
 
 export const PERSONAS = [
-  { id: "people-happiness", number: "01", title: "People & Happiness Managers", body: "You support the wellbeing of your organization, but employee experiences can be difficult to understand through occasional surveys", img: "/img/photos/persona-01-people-happiness.jpg", alt: "A small team talking together in a bright, plant-filled studio" },
-  { id: "managers", number: "02", title: "Team Leads & Managers", body: "Your team’s mood can influence how people collaborate, communicate, and experience their work", img: "/img/photos/persona-02-team-leads.jpg", alt: "A team lead reviewing work on a laptop with two colleagues" },
-  { id: "remote", number: "03", title: "Remote & Hybrid Teams", body: "When people work across locations, the small emotional signals of everyday work can be easy to miss", img: "/img/photos/persona-03-remote-hybrid.jpg", alt: "Colleagues in an office joined by teammates on a video call" },
-  { id: "creatives", number: "04", title: "Creative Teams & Agencies", body: "Creative work depends on collaboration, energy, and openness. But deadlines and delivery pressures can make it difficult to notice", img: "/img/photos/persona-04-creative.jpg", alt: "A creative team gathered around a table covered in sketches and notes" },
-  { id: "founders", number: "05", title: "Founders & Leadership Teams", body: "Business performance tells you what is happening. Team insights can help you understand more about how people are experiencing the work", img: "/img/photos/persona-05-founders.jpg", alt: "A leadership team in discussion around a meeting table" },
+  { id: "people-culture", number: "01", title: "People & Culture Teams", body: "Understand emotional patterns across teams and make better-informed decisions around engagement, support, recognition and culture.", img: "/img/photos/persona-01-people-happiness.jpg", alt: "A small team talking together in a bright, plant-filled studio" },
+  { id: "founders", number: "02", title: "Founders & Business Leaders", body: "Stay close to how people are experiencing work as the organisation grows, even when you cannot personally check in with everyone.", img: "/img/photos/persona-05-founders.jpg", alt: "A leadership team in discussion around a meeting table" },
+  { id: "managers", number: "03", title: "Team Leads & Managers", body: "See shifts in team energy and sentiment that may not appear in project updates or performance metrics.", img: "/img/photos/persona-02-team-leads.jpg", alt: "A team lead reviewing work on a laptop with two colleagues" },
+  { id: "teams", number: "04", title: "Employees & Teams", body: "A simple space to reflect, share inspiration and contribute to a healthier team experience together.", img: "/img/photos/persona-04-creative.jpg", alt: "A team gathered around a table, sharing ideas" },
 ] as const;
 
 export const NAV = [
   { label: "What is Moodoo", href: "#what-is-moodoo" },
   { label: "Why Moodoo", href: "#why-moodoo" },
+  { label: "For People & Culture", href: "#for-people-culture" },
+  { label: "For Founders", href: "#for-founders" },
   { label: "For Managers", href: "#for-managers" },
-  { label: "For Remote Teams", href: "#for-remote" },
-  { label: "For Creatives", href: "#for-creatives" },
 ] as const;
 
 export const ROLES = [

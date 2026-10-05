@@ -49,6 +49,8 @@
   /* clip, not hidden: guards against sideways scroll without breaking sticky */
   body { font-family: var(--font-sans); overflow-x: clip; }
   ::selection { background: color-mix(in srgb, var(--color-mustard) 55%, transparent); }
+  /* headings that wrap on their own get even lines (no orphaned last word) */
+  h2, h3, blockquote p { text-wrap: balance; }
   :focus-visible {
     outline: 2px solid var(--color-ink);
     outline-offset: 3px;
