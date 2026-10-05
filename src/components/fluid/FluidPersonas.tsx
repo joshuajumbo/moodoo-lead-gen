@@ -23,7 +23,7 @@ export function FluidPersonas() {
         <ol className="mt-12 grid gap-4 md:mt-14 md:grid-cols-2">
           <li aria-hidden className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[420px]">
             <Image
-              src="/img/photos/persona-03-remote-hybrid.jpg"
+              src="/img/photos/team-working.jpg"
               alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

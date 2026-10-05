@@ -69,7 +69,7 @@ export function Personas() {
 
           {/* state frames 807:323431… use 451 × 655 here (main page shows 475 × 603) */}
           <div className="absolute left-[140px] top-[286px] h-[655px] w-[451px] overflow-hidden">
-            <Image src="/img/photos/persona-03-remote-hybrid.jpg" alt="A team working together in the office, joined by colleagues on a video call" fill sizes="451px" quality={85} className="object-cover" />
+            <Image src="/img/photos/team-working.jpg" alt="A team in easy conversation around a shared table, laptops open" fill sizes="451px" quality={85} className="object-cover" />
           </div>
 
           <div className="absolute bottom-0 left-[647px] top-[286px] w-[653px] overflow-hidden">
