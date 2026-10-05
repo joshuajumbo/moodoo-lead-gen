@@ -2,8 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { getFormToken, joinWaitlist } from "@/app/actions/waitlist";
-import type { WaitlistState, WaitlistInput } from "@/lib/waitlist-schema";
-import { ROLES, TEAM_SIZES } from "@/content/moodoo";
+import type { WaitlistState } from "@/lib/waitlist-schema";
 
 const INITIAL: WaitlistState = { status: "idle" };
 const META_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "referrer"] as const;
@@ -72,11 +71,16 @@ export function WaitlistForm() {
     );
   }
 
-  const fe = state.status === "error" ? state.fieldErrors ?? {} : {};
-  const err = (k: keyof WaitlistInput) => fe[k];
+  const emailError = state.status === "error" ? (state.fieldErrors?.work_email ?? null) : null;
 
   return (
-    <form action={action} onSubmit={stampMeta} noValidate className="mt-[33.23px] flex w-full flex-col items-end gap-[24px]" aria-describedby={state.status === "error" ? "form-error" : undefined}>
+    <form
+      action={action}
+      onSubmit={stampMeta}
+      noValidate
+      className="mt-[33.23px] flex w-full max-w-[560px] flex-col gap-[8px]"
+      aria-describedby={state.status === "error" ? "form-error" : undefined}
+    >
       {/* bot traps: honeypot + signed render time */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label>
@@ -89,93 +93,46 @@ export function WaitlistForm() {
         <input key={k} type="hidden" name={k} defaultValue="" />
       ))}
 
-      <div className="grid w-full grid-cols-1 gap-[24px] md:grid-cols-2 md:gap-x-[32px] md:gap-y-[32px] desk:gap-[40px]">
-        <Field id="work_email" label="Work Email" required error={err("work_email")}>
+      <label htmlFor="work_email" className="text-[18px] font-bold leading-[29.16px] text-ink-soft">
+        Work Email
+      </label>
+
+      {/* one field, one action: a single row from 640px, stacked on phones */}
+      <div className="flex flex-col gap-[12px] sm:flex-row sm:items-center">
+        <div className={`${fieldShell} sm:flex-1 ${emailError ? "border-[#b3261e]/60" : "border-[rgb(4_58_78/0.1)]"}`}>
           <input
-            id="work_email" name="work_email" type="email" inputMode="email" autoComplete="email" required
-            placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)}
-            aria-invalid={!!err("work_email")} aria-describedby={err("work_email") ? "work_email-error" : undefined}
+            id="work_email"
+            name="work_email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            required
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-invalid={!!emailError}
+            aria-describedby={emailError ? "work_email-error" : undefined}
             className={inputBase}
           />
-        </Field>
-        <Field id="full_name" label="Full Name" error={err("full_name")}>
-          <input id="full_name" name="full_name" type="text" autoComplete="name" maxLength={120} placeholder="E.g. John Doe" className={inputBase} />
-        </Field>
-        <Field id="organization" label="Organization" error={err("organization")}>
-          <input id="organization" name="organization" type="text" autoComplete="organization" maxLength={160} placeholder="Studio, team or company" className={inputBase} />
-        </Field>
-        <Field id="role" label="Role" error={err("role")}>
-          <Select id="role" name="role" options={ROLES} />
-        </Field>
-        <Field id="team_size" label="Team Size" error={err("team_size")}>
-          <Select id="team_size" name="team_size" options={TEAM_SIZES} />
-        </Field>
-        <Field id="phone" label="Phone Number" error={err("phone")}>
-          <div className="flex size-full items-center">
-            <label htmlFor="phone_code" className="sr-only">Country code</label>
-            <input
-              id="phone_code" name="phone_code" type="text" inputMode="tel" defaultValue="+91" maxLength={5}
-              className="h-full w-[52px] shrink-0 rounded-l-[22px] bg-transparent pl-[17px] text-[14.5px] text-ink-soft outline-none"
-            />
-            <input
-              id="phone" name="phone" type="tel" inputMode="tel" autoComplete="tel-national" maxLength={24}
-              placeholder="98765 43210" aria-invalid={!!err("phone")}
-              className="h-full min-w-0 flex-1 rounded-r-[22px] bg-transparent pr-[17px] text-[14.5px] text-ink-soft outline-none placeholder:text-[rgb(51_53_59/0.33)]"
-            />
-          </div>
-        </Field>
-      </div>
-
-      <div className="flex w-full flex-col-reverse items-stretch gap-4 sm:flex-row sm:items-center sm:justify-end sm:gap-[20px]">
-        <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
-          {state.status === "error" && (
-            <p id="form-error" className="text-center text-[14px] font-medium leading-[21px] text-[#b3261e] sm:text-right">{state.message}</p>
-          )}
         </div>
-        <button type="submit" disabled={pending} className="btn-primary justify-center disabled:cursor-progress disabled:opacity-70 max-sm:w-full max-sm:!py-[16px]">
+        <button
+          type="submit"
+          disabled={pending}
+          className="btn-primary h-[56px] shrink-0 justify-center disabled:cursor-progress disabled:opacity-70 max-sm:w-full"
+        >
           {pending ? "Joining…" : "Join Early Access"}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/img/icons/arrow.svg" alt="" width={14} height={14} className="btn-arrow" />
         </button>
       </div>
+
+      <div ref={statusRef} tabIndex={-1} aria-live="polite" className="min-h-[19.5px] pl-[17px] outline-none">
+        {emailError ? (
+          <p id="work_email-error" className="text-[13px] leading-[19.5px] text-[#b3261e]">{emailError}</p>
+        ) : state.status === "error" ? (
+          <p id="form-error" className="text-[13px] leading-[19.5px] text-[#b3261e]">{state.message}</p>
+        ) : null}
+      </div>
     </form>
-  );
-}
-
-function Field({ id, label, required, error, children }: { id: string; label: string; required?: boolean; error?: string; children: React.ReactNode }) {
-  return (
-    <div className="relative flex flex-col gap-[8px]">
-      <label htmlFor={id} className="text-[18px] font-bold leading-[29.16px] text-ink-soft">
-        {label}
-        {required && (
-          <>
-            {" "}
-            <span aria-hidden className="text-error">*</span>
-            <span className="sr-only">(required)</span>
-          </>
-        )}
-      </label>
-      <div className={`${fieldShell} ${error ? "border-[#b3261e]/60" : "border-[rgb(4_58_78/0.1)]"}`}>{children}</div>
-      {error && (
-        <p id={`${id}-error`} className="-mt-[2px] pl-[17px] text-[13px] leading-[19.5px] text-[#b3261e]">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
-
-function Select({ id, name, options }: { id: string; name: string; options: readonly string[] }) {
-  return (
-    <>
-      <select id={id} name={name} defaultValue="" className={`${inputBase} cursor-pointer appearance-none pr-[48px]`}>
-        <option value="">Select One</option>
-        {options.map((o) => (
-          <option key={o} value={o}>{o}</option>
-        ))}
-      </select>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/img/icons/chevron.svg" alt="" width={20} height={20} className="pointer-events-none absolute right-[17px] top-[17px]" />
-    </>
   );
 }
